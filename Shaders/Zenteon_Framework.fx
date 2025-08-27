@@ -32,6 +32,13 @@
 		#define SHOW_DEBUG 0
 	//============================================================================================
 	#endif
+
+	#ifndef ENABLE_FLOW
+	//============================================================================================
+		#define ENABLE_FLOW 0
+	//============================================================================================
+	#endif
+	
 	
 	uniform float FRAME_TIME < source = "frametime"; >;
 	
@@ -1361,23 +1368,25 @@
 			pass {	PASS1(DD3PS, tLD3); }
 		
 			//optical flow
-			pass {	PASS1(Level5PS, tLevel5); }
-			pass {	PASS1(Level4PS, tLevel4); }
-			pass {	PASS1(Level3PS, tLevel3); }
-			pass {	PASS1(Level2PS, tLevel2); }
-			pass {	PASS1(Level1PS, tLevel1); }
-			pass {	PASS1(Level0PS, tLevel0); }	
-			
-			pass {	PASS1(Flood0PS, tTemp1M); }
-			pass {	PASS1(Flood1PS, tTemp0M); }	
-			pass {	PASS1(Flood2PS, tTemp1M); }	
-			pass {	PASS1(Flood3PS, tTemp0M); }	
-			
-			pass {	PASS1(UpscaleMVI0, tQuar); }	
-			pass {	PASS1(UpscaleMVI, tHalf); }	
-			pass {	PASS1(UpscaleMV, tFull); }	
-			
-			pass {	PASS1(SaveMVPS, zfw::tVelocity); }
+			#if ENABLE_FLOW
+				pass {	PASS1(Level5PS, tLevel5); }
+				pass {	PASS1(Level4PS, tLevel4); }
+				pass {	PASS1(Level3PS, tLevel3); }
+				pass {	PASS1(Level2PS, tLevel2); }
+				pass {	PASS1(Level1PS, tLevel1); }
+				pass {	PASS1(Level0PS, tLevel0); }	
+				
+				pass {	PASS1(Flood0PS, tTemp1M); }
+				pass {	PASS1(Flood1PS, tTemp0M); }	
+				pass {	PASS1(Flood2PS, tTemp1M); }	
+				pass {	PASS1(Flood3PS, tTemp0M); }	
+				
+				pass {	PASS1(UpscaleMVI0, tQuar); }	
+				pass {	PASS1(UpscaleMVI, tHalf); }	
+				pass {	PASS1(UpscaleMV, tFull); }	
+				
+				pass {	PASS1(SaveMVPS, zfw::tVelocity); }
+			#endif
 	
 			pass {	PASS1(CopyColPS, tPreFrm); }	
 			pass {	PASS1(Copy0PS, tPG0); }	
